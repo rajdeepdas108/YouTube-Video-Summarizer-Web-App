@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Summarizer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <i class="fas fa-play-circle"></i>
+                    YouTube Video Summarizer
+                </h1>
+                <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+                    <i class="fas fa-sun"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Input Section -->
+            <section class="input-section">
+                <div class="input-container">
+                    <div class="url-input-group">
+                        <label for="videoUrl" class="input-label">YouTube Video URL</label>
+                        <input 
+                            type="url" 
+                            id="videoUrl" 
+                            class="url-input" 
+                            placeholder="Paste YouTube video URL here..."
+                            required
+                        >
+                    </div>
+                    
+                    <div class="language-group">
+                        <label for="outputLanguage" class="input-label">Output Language</label>
+                        <select id="outputLanguage" class="language-select">
+                            <option value="en">English</option>
+                            <option value="es">Spanish</option>
+                            <option value="fr">French</option>
+                            <option value="de">German</option>
+                            <option value="it">Italian</option>
+                            <option value="pt">Portuguese</option>
+                            <option value="ru">Russian</option>
+                            <option value="ja">Japanese</option>
+                            <option value="ko">Korean</option>
+                            <option value="zh">Chinese</option>
+                            <option value="ar">Arabic</option>
+                            <option value="hi">Hindi</option>
+                        </select>
+                    </div>
+                    
+                    <button class="summarize-btn" id="summarizeBtn">
+                        <i class="fas fa-magic"></i>
+                        Summarize Video
+                    </button>
+                </div>
+            </section>
+
+            <!-- Loading Spinner -->
+            <div class="loading-container" id="loadingContainer" style="display: none;">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p class="loading-text">Processing your video...</p>
+                </div>
+            </div>
+
+            <!-- Export Buttons -->
+            <section class="export-section" id="exportSection" style="display: none;">
+                <h3 class="export-title">Export Results</h3>
+                <div class="export-buttons">
+                    <button class="export-btn pdf-btn" id="exportPdf">
+                        <i class="fas fa-file-pdf"></i>
+                        Export PDF
+                    </button>
+                    <button class="export-btn txt-btn" id="exportTxt">
+                        <i class="fas fa-file-alt"></i>
+                        Export TXT
+                    </button>
+                    <button class="export-btn png-btn" id="exportPng">
+                        <i class="fas fa-image"></i>
+                        Export PNG
+                    </button>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section" id="resultsSection" style="display: none;">
+                <!-- Tab Navigation -->
+                <nav class="tab-nav">
+                    <button class="tab-btn active" data-tab="summary">
+                        <i class="fas fa-file-text"></i>
+                        Summary
+                    </button>
+                    <button class="tab-btn" data-tab="notes">
+                        <i class="fas fa-sticky-note"></i>
+                        Notes
+                    </button>
+                    <button class="tab-btn" data-tab="mindmap">
+                        <i class="fas fa-project-diagram"></i>
+                        Mind Map
+                    </button>
+                    <button class="tab-btn" data-tab="qna">
+                        <i class="fas fa-question-circle"></i>
+                        Q&A
+                    </button>
+                </nav>
+
+                <!-- Tab Content -->
+                <div class="tab-content">
+                    <!-- Summary Tab -->
+                    <div class="tab-pane active" id="summary">
+                        <div class="content-area">
+                            <h3 class="content-title">Video Summary</h3>
+                            <div class="content-body">
+                                <p class="placeholder-text">
+                                    Your video summary will appear here. The AI will analyze the video transcript 
+                                    and provide a comprehensive summary of the main points and key takeaways.
+                                </p>
+                                <div class="summary-content">
+                                    <!-- Summary content will be dynamically loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notes Tab -->
+                    <div class="tab-pane" id="notes">
+                        <div class="content-area">
+                            <h3 class="content-title">Key Notes</h3>
+                            <div class="content-body">
+                                <p class="placeholder-text">
+                                    Structured notes and bullet points will be displayed here, highlighting 
+                                    the most important information from the video.
+                                </p>
+                                <div class="notes-content">
+                                    <!-- Notes content will be dynamically loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mind Map Tab -->
+                    <div class="tab-pane" id="mindmap">
+                        <div class="content-area">
+                            <h3 class="content-title">Mind Map</h3>
+                            <div class="content-body">
+                                <p class="placeholder-text">
+                                    An interactive mind map visualization of the video content will be rendered here, 
+                                    showing the relationships between different topics and concepts.
+                                </p>
+                                <div class="mindmap-content">
+                                    <!-- Mind map will be rendered here using markmap.js -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Q&A Tab -->
+                    <div class="tab-pane" id="qna">
+                        <div class="content-area">
+                            <h3 class="content-title">Questions & Answers</h3>
+                            <div class="content-body">
+                                <p class="placeholder-text">
+                                    AI-generated questions and answers based on the video content will appear here, 
+                                    helping you test your understanding of the material.
+                                </p>
+                                <div class="qna-content">
+                                    <!-- Q&A content will be dynamically loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 YouTube Video Summarizer. Built with ❤️ for learning.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
